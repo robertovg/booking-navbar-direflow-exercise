@@ -35,12 +35,14 @@
     "direflow-component": "3.5.3",
     "direflow-scripts": "3.5.3",
     "react": "16.13.1",
+    "react-dates": "^21.8.0",
     "react-dom": "16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@types/jest": "24.0.18",
+    "@types/react-dates": "^21.8.1",
     "@types/react-test-renderer": "16.9.1",
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
