@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot as expected 1`] = `
+<div
+  className="sc-bdfBwQ cIgBuz"
+>
+  <div>
+    Works
+  </div>
+  <button
+    className="button"
+    onClick={[Function]}
+  >
+    Click me!
+  </button>
+</div>
+`;

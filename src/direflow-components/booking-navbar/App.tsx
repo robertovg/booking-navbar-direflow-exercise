@@ -1,51 +1,39 @@
-import React, { FC, useContext } from 'react';
-import { EventContext, Styled } from 'direflow-component';
-import styles from './App.css';
+import React, { FC, useContext } from "react";
+import { EventContext } from "direflow-component";
+import styled from "styled-components";
 
 interface IProps {
-  componentTitle: string;
-  sampleList: string[];
+  bookingURL?: string;
 }
 
-const App: FC<IProps> = (props) => {
+const AppStyled = styled.div`
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-auto-flow: column;
+  &,
+  & * {
+    font-family: "Lato", sans-serif;
+  }
+`;
+
+const App: FC<IProps> = ({ bookingURL = "https://bookingURL" }) => {
   const dispatch = useContext(EventContext);
 
   const handleClick = () => {
-    const event = new Event('my-event');
+    window.open(bookingURL);
+    const event = new Event("my-event");
     dispatch(event);
   };
 
-  const renderSampleList = props.sampleList.map((sample: string) => (
-    <div key={sample} className='sample-text'>
-      → {sample}
-    </div>
-  ));
-
   return (
-    <Styled styles={styles}>
-      <div className='app'>
-        <div className='top'>
-          <div className='header-image' />
-        </div>
-        <div className='bottom'>
-          <div className='header-title'>{props.componentTitle}</div>
-          <div>{renderSampleList}</div>
-          <button className='button' onClick={handleClick}>
-            Click me!
-          </button>
-        </div>
-      </div>
-    </Styled>
+    <AppStyled>
+      <div>Works</div>
+      <button className="button" onClick={handleClick}>
+        Click me!
+      </button>
+    </AppStyled>
   );
 };
-
-App.defaultProps = {
-  componentTitle: 'Booking Navbar',
-  sampleList: [
-    'Create with React',
-    'Build as Web Component',
-    'Use it anywhere!',
-  ],
-}
 
 export default App;

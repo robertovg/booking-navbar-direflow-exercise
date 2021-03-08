@@ -1,19 +1,22 @@
-import { DireflowComponent } from 'direflow-component';
-import App from './App';
+import { DireflowComponent } from "direflow-component";
+import App from "./App";
 
 export default DireflowComponent.create({
   component: App,
   configuration: {
-    tagname: 'booking-navbar',
+    tagname: "booking-navbar",
   },
   plugins: [
     {
-      name: 'font-loader',
+      name: "font-loader",
       options: {
         google: {
-          families: ['Advent Pro', 'Noto Sans JP'],
+          families: ["Lato"],
         },
       },
+    },
+    {
+      name: "styled-components",
     },
   ],
 });
