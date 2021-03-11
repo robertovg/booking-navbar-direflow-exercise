@@ -22,6 +22,7 @@ const AppStyled = styled.div`
   display: grid;
   grid-auto-flow: column;
   column-gap: 1rem;
+  font-size: 16px;
   &,
   & * {
     font-family: "Lato", sans-serif;
@@ -30,7 +31,6 @@ const AppStyled = styled.div`
     transition: background-color 0.3s ease;
 
     & {
-      font-size: 16px;
       text-transform: uppercase;
       padding: 15px 30px;
       border: none;
@@ -42,6 +42,24 @@ const AppStyled = styled.div`
     &:hover {
       background: ${orangeLight};
       color: white;
+    }
+  }
+  @media (max-width: 500px) {
+    font-size: 10px;
+    column-gap: 0.5rem;
+    & > button {
+      max-width: 200px;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden !important;
+      text-overflow: ellipsis;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+  @media (max-width: 350px) {
+    & > button {
+      max-width: 70px;
     }
   }
 `;

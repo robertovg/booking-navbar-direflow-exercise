@@ -21,10 +21,8 @@ const DatePickerStyled = styled.div<DatePickerProps>`
   ${dateCss}
   padding-right: 22px;
   border: 1px solid #dbdbdb;
-  @media (max-width: 500px) {
-    .DateRangePickerInput_calendarIcon {
-      display: none;
-    }
+  .DateRangePickerInput_calendarIcon {
+    margin: 0 5px 4px 5px;
   }
 
   ${(props) => {
@@ -81,6 +79,17 @@ const DatePickerStyled = styled.div<DatePickerProps>`
       }
     `;
   }};
+  @media (max-width: 500px) {
+    .DateRangePickerInput_calendarIcon {
+      display: none;
+    }
+    .DateInput {
+      width: 90px;
+    }
+    .DateInput_input {
+      font-size: 14px;
+    }
+  }
 `;
 const DatePicker = ({
   lightAccent,
