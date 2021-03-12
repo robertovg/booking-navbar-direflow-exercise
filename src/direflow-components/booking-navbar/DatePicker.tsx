@@ -135,14 +135,6 @@ const DatePicker = ({
         onDatesChange={handleDatesChange}
         focusedInput={focusedInput}
         onFocusChange={(focusedInputParam: FocusedInputShape | null) => {
-          if (startDate && endDate) {
-            if (focusedInputParam === "startDate") {
-              setStartDate(null);
-            }
-            if (focusedInputParam === "endDate") {
-              setEndDate(null);
-            }
-          }
           if (focusedInputParam) {
             setFocusedInput(focusedInputParam);
           }
