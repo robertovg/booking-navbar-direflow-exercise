@@ -4,12 +4,12 @@ import styled from "styled-components";
 import DatePicker from "./DatePicker";
 
 interface AppProps {
-  bookingURL?: string;
-  lightAccent?: string;
-  strongAccent?: string;
-  disabledAccent?: string;
-  currency?: string;
-  bookingActionLabel?: string;
+  bookingURL: string;
+  lightAccent: string;
+  strongAccent: string;
+  disabledAccent: string;
+  currency: string;
+  bookingActionLabel: string;
 }
 
 const orangeLight = "#f2937c";
@@ -65,11 +65,11 @@ const AppStyled = styled.div`
 `;
 
 const App = ({
-  bookingURL = "https://bookingURL",
-  lightAccent = orangeLight,
-  strongAccent = orangeStrong,
-  disabledAccent = brownLight,
-  currency = "EUR",
+  bookingURL,
+  lightAccent,
+  strongAccent,
+  disabledAccent,
+  currency,
   bookingActionLabel = "book",
 }: AppProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Moment | null>(moment());
@@ -113,6 +113,15 @@ const App = ({
       </button>
     </AppStyled>
   );
+};
+
+App.defaultProps = {
+  bookingURL: "https://bookingURL",
+  lightAccent: orangeLight,
+  strongAccent: orangeStrong,
+  disabledAccent: brownLight,
+  currency: "EUR",
+  bookingActionLabel: "book",
 };
 
 export default App;
