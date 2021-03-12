@@ -1,4 +1,5 @@
-import { Moment } from "moment";
+import moment, { Moment } from "moment";
+import "moment/min/locales";
 import React, { useState } from "react";
 import { DateRangePicker, FocusedInputShape } from "react-dates";
 import "react-dates/initialize";
@@ -15,17 +16,27 @@ interface DatePickerProps extends DatePickerStyledProps {
     startDate: Moment | null;
     endDate: Moment | null;
   }) => void;
+  startDatePlaceholderText: string;
+  endDatePlaceholderText: string;
+  locale: string;
 }
 
-const DatePickerStyled = styled.div<DatePickerProps>`
+const DatePickerStyled = styled.div<DatePickerStyledProps>`
   ${dateCss}
   padding-right: 22px;
   border: 1px solid #dbdbdb;
   .DateRangePickerInput_calendarIcon {
     margin: 0 5px 4px 5px;
   }
+  .DateInput_input {
+    font-weight: 400;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden !important;
+  }
 
   ${(props) => {
+    /* Overriding default theme colors */
     const { lightAccent, strongAccent, disabledAccent } = props;
     return css`
       .DateRangePickerInput__withBorder {
@@ -79,7 +90,7 @@ const DatePickerStyled = styled.div<DatePickerProps>`
       }
     `;
   }};
-  @media (max-width: 500px) {
+  @media (max-width: 520px) {
     .DateRangePickerInput_calendarIcon {
       display: none;
     }
@@ -96,7 +107,12 @@ const DatePicker = ({
   strongAccent,
   disabledAccent,
   onDateChange,
+  startDatePlaceholderText,
+  endDatePlaceholderText,
+  locale,
 }: DatePickerProps): JSX.Element => {
+  console.log("locale", locale);
+  moment.locale(locale);
   const [startDate, setStartDate] = useState<Moment | null>(null);
   const [endDate, setEndDate] = useState<Moment | null>(null);
   const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(
@@ -126,6 +142,7 @@ const DatePicker = ({
       disabledAccent={disabledAccent}
     >
       <DateRangePicker
+        hideKeyboardShortcutsPanel={true}
         showClearDates={false}
         showDefaultInputIcon={true}
         startDate={startDate}
@@ -133,6 +150,8 @@ const DatePicker = ({
         endDate={endDate}
         endDateId="selector-end-date"
         onDatesChange={handleDatesChange}
+        startDatePlaceholderText={startDatePlaceholderText}
+        endDatePlaceholderText={endDatePlaceholderText}
         focusedInput={focusedInput}
         onFocusChange={(focusedInputParam: FocusedInputShape | null) => {
           if (focusedInputParam) {

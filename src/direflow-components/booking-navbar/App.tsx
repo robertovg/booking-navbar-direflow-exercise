@@ -10,6 +10,9 @@ interface AppProps {
   disabledAccent: string;
   currency: string;
   bookingActionLabel: string;
+  startDatePlaceholderText: string;
+  endDatePlaceholderText: string;
+  locale: string;
 }
 
 const orangeLight = "#f2937c";
@@ -20,12 +23,16 @@ const AppStyled = styled.div`
   width: 100%;
   height: auto;
   display: grid;
+  justify-content: center;
   grid-auto-flow: column;
   column-gap: 1rem;
   font-size: 16px;
   &,
   & * {
     font-family: "Lato", sans-serif;
+  }
+  *:focus {
+    outline: none !important;
   }
   & > button {
     transition: background-color 0.3s ease;
@@ -44,7 +51,7 @@ const AppStyled = styled.div`
       color: white;
     }
   }
-  @media (max-width: 500px) {
+  @media (max-width: 520px) {
     font-size: 10px;
     column-gap: 0.5rem;
     & > button {
@@ -57,10 +64,8 @@ const AppStyled = styled.div`
       padding-right: 15px;
     }
   }
-  @media (max-width: 350px) {
-    & > button {
-      max-width: 70px;
-    }
+  @media (max-width: 355px) {
+    display: none;
   }
 `;
 
@@ -70,7 +75,10 @@ const App = ({
   strongAccent,
   disabledAccent,
   currency,
-  bookingActionLabel = "book",
+  bookingActionLabel,
+  startDatePlaceholderText,
+  endDatePlaceholderText,
+  locale,
 }: AppProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Moment | null>(moment());
   const [endDate, setEndDate] = useState<Moment | null>(moment());
@@ -90,7 +98,7 @@ const App = ({
     const params = [
       ...(startDate ? [`checkInDate=${startDate?.format("YYYY-MM-DD")}`] : []),
       ...(endDate ? [`checkOutDate=${endDate?.format("YYYY-MM-DD")}`] : []),
-      `locale=${(window?.navigator?.language ?? "en").substr(0, 2)}`,
+      `locale=${locale}`,
       `currency=${currency}`,
     ];
 
@@ -107,6 +115,9 @@ const App = ({
         strongAccent={strongAccent}
         disabledAccent={disabledAccent}
         onDateChange={handleDatesChange}
+        startDatePlaceholderText={startDatePlaceholderText}
+        endDatePlaceholderText={endDatePlaceholderText}
+        locale={locale}
       />
       <button className="button" onClick={openBookingPage}>
         {bookingActionLabel}
@@ -122,6 +133,9 @@ App.defaultProps = {
   disabledAccent: brownLight,
   currency: "EUR",
   bookingActionLabel: "book",
+  startDatePlaceholderText: "Start Date",
+  endDatePlaceholderText: "End Date",
+  locale: "en",
 };
 
 export default App;
