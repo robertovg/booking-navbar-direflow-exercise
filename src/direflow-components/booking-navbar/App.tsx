@@ -4,6 +4,7 @@ import styled from "styled-components";
 import DatePicker from "./DatePicker";
 
 interface AppProps {
+  replaceURL?: boolean;
   bookingURL?: string;
   lightAccent?: string;
   strongAccent?: string;
@@ -75,6 +76,7 @@ const AppStyled = styled.div`
 `;
 
 const App = ({
+  replaceURL = false,
   bookingURL = "https://bookingURL",
   lightAccent = orangeLight,
   strongAccent = orangeStrong,
@@ -120,7 +122,11 @@ const App = ({
     }
 
     const urlToOpen = `${bookingURL}?${params.toString()}`;
-    window.open(urlToOpen);
+    if (replaceURL) {
+      window.location.replace(urlToOpen);
+    } else {
+      window.open(urlToOpen);
+    }
   };
 
   return (
@@ -142,6 +148,7 @@ const App = ({
 };
 
 App.defaultProps = {
+  replaceURL: false,
   bookingURL: "https://bookingURL",
   lightAccent: orangeLight,
   strongAccent: orangeStrong,
