@@ -4,15 +4,20 @@ import styled from "styled-components";
 import DatePicker from "./DatePicker";
 
 interface AppProps {
-  bookingURL: string;
-  lightAccent: string;
-  strongAccent: string;
-  disabledAccent: string;
-  currency: string;
-  bookingActionLabel: string;
-  startDatePlaceholderText: string;
-  endDatePlaceholderText: string;
-  locale: string;
+  bookingURL?: string;
+  lightAccent?: string;
+  strongAccent?: string;
+  disabledAccent?: string;
+  bookingActionLabel?: string;
+  startDatePlaceholderText?: string;
+  endDatePlaceholderText?: string;
+  locale?: string;
+  currency?: string;
+  dateFormat?: string;
+  keyCheckInDate?: string;
+  keyCheckOutDate?: string;
+  keyLocale?: string;
+  keyCurrency?: string;
 }
 
 const orangeLight = "#f2937c";
@@ -70,15 +75,20 @@ const AppStyled = styled.div`
 `;
 
 const App = ({
-  bookingURL,
-  lightAccent,
-  strongAccent,
-  disabledAccent,
-  currency,
-  bookingActionLabel,
-  startDatePlaceholderText,
-  endDatePlaceholderText,
-  locale,
+  bookingURL = "https://bookingURL",
+  lightAccent = orangeLight,
+  strongAccent = orangeStrong,
+  disabledAccent = brownLight,
+  currency = "EUR",
+  bookingActionLabel = "book",
+  startDatePlaceholderText = "Start Date",
+  endDatePlaceholderText = "End Date",
+  locale = "en",
+  dateFormat = "DD/MM/YYYY",
+  keyCheckInDate = "info[arrival_date]",
+  keyCheckOutDate = "info[departure_date]",
+  keyLocale = undefined,
+  keyCurrency = undefined,
 }: AppProps): JSX.Element => {
   const [startDate, setStartDate] = useState<Moment | null>(moment());
   const [endDate, setEndDate] = useState<Moment | null>(moment());
@@ -95,16 +105,21 @@ const App = ({
   };
 
   const openBookingPage = () => {
-    const params = [
-      ...(startDate ? [`checkInDate=${startDate?.format("YYYY-MM-DD")}`] : []),
-      ...(endDate ? [`checkOutDate=${endDate?.format("YYYY-MM-DD")}`] : []),
-      `locale=${locale}`,
-      `currency=${currency}`,
-    ];
+    const params = new URLSearchParams();
+    if (startDate && keyCheckInDate) {
+      params.append(keyCheckInDate, startDate.format(dateFormat));
+    }
+    if (endDate && keyCheckOutDate) {
+      params.append(keyCheckOutDate, endDate.format(dateFormat));
+    }
+    if (locale && keyLocale) {
+      params.append(keyLocale, locale);
+    }
+    if (currency && keyCurrency) {
+      params.append(keyCurrency, currency);
+    }
 
-    const urlToOpen = `${bookingURL}${params
-      .map((e, i) => `${i ? "&" : "?"}${e}`)
-      .join("")}`;
+    const urlToOpen = `${bookingURL}?${params.toString()}`;
     window.open(urlToOpen);
   };
 
@@ -135,7 +150,12 @@ App.defaultProps = {
   bookingActionLabel: "book",
   startDatePlaceholderText: "Start Date",
   endDatePlaceholderText: "End Date",
-  locale: "en",
+  locale: "es",
+  dateFormat: "DD/MM/YYYY",
+  keyCheckInDate: "info[arrival_date]",
+  keyCheckOutDate: "info[departure_date]",
+  keyLocale: undefined,
+  keyCurrency: undefined,
 };
 
 export default App;

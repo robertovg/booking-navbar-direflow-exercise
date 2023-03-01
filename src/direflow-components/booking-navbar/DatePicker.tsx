@@ -111,7 +111,6 @@ const DatePicker = ({
   endDatePlaceholderText,
   locale,
 }: DatePickerProps): JSX.Element => {
-  console.log("locale", locale);
   moment.locale(locale);
   const [startDate, setStartDate] = useState<Moment | null>(null);
   const [endDate, setEndDate] = useState<Moment | null>(null);
